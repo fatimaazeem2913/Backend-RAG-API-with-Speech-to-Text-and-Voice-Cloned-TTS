@@ -1,0 +1,142 @@
+[
+  {
+    "id": 1,
+    "question": "What are the core biological components of a neuron shown in Figure 4.1?",
+    "expected_answer": "Dendrites (input), Cell nucleus (nodes), Synapses (weights), Axon (output).",
+    "expected_source": "SupportcoursesM-DLearning.pdf",
+    "expected_page": 77
+  },
+  {
+    "id": 2,
+    "question": "How does the cell nucleus of a neuron map to an artificial neural network?",
+    "expected_answer": "The cell nucleus maps to nodes (or neurons).",
+    "expected_source": "SupportcoursesM-DLearning.pdf",
+    "expected_page": 78
+  },
+  {
+    "id": 3,
+    "question": "What is the function of the axon in an artificial neural network context?",
+    "expected_answer": "The axon represents the output calculated by activation function.",
+    "expected_source": "SupportcoursesM-DLearning.pdf",
+    "expected_page": 78
+  },
+  {
+    "id": 4,
+    "question": "What is the mathematical formula for Mean Squared Error (MSE)?",
+    "expected_answer": "1/n * sum((y_i - y_hat_i)^2)",
+    "expected_source": "SupportcoursesM-DLearning.pdf",
+    "expected_page": 105
+  },
+  {
+    "id": 5,
+    "question": "What do y_i and y_hat_i represent in the Mean Squared Error formula?",
+    "expected_answer": "y_i represents actual values and y_hat_i represents predicted values.",
+    "expected_source": "SupportcoursesM-DLearning.pdf",
+    "expected_page": 105
+  },
+  {
+    "id": 6,
+    "question": "Why do we square the differences in Mean Squared Error?",
+    "expected_answer": "Squaring gives more weight to larger errors and penalizes large outliers.",
+    "expected_source": "SupportcoursesM-DLearning.pdf",
+    "expected_page": 105
+  },
+  {
+    "id": 7,
+    "question": "What are the API rate limits defined for free and professional tiers?",
+    "expected_answer": "Free: 60 req/min and 10,000 req/day; Pro: 600 req/min and 200,000 req/day.",
+    "expected_source": "api_rate_limiting_policy.txt",
+    "expected_page": 1
+  },
+  {
+    "id": 8,
+    "question": "What HTTP status code is returned when API rate limits are exceeded?",
+    "expected_answer": "HTTP 429 status code with a Retry-After header.",
+    "expected_source": "api_rate_limiting_policy.txt",
+    "expected_page": 1
+  },
+  {
+    "id": 9,
+    "question": "How can developers request a rate limit increase?",
+    "expected_answer": "Through the developer portal; reviewed by platform engineering within 2 business days.",
+    "expected_source": "api_rate_limiting_policy.txt",
+    "expected_page": 1
+  },
+  {
+    "id": 10,
+    "question": "Explain how linear regression minimizes error during training.",
+    "expected_answer": "Optimizes linear coefficients using a cost function like MSE.",
+    "expected_source": "SupportcoursesM-DLearning.pdf",
+    "expected_page": 34
+  },
+  {
+    "id": 11,
+    "question": "What role does the learning rate eta play in LMS weight updates?",
+    "expected_answer": "It scales weight updates to incrementally reduce error.",
+    "expected_source": "SupportcoursesM-DLearning.pdf",
+    "expected_page": 20
+  },
+  {
+    "id": 12,
+    "question": "What is the primary objective of a Support Vector Machine in classification?",
+    "expected_answer": "To find the optimal hyperplane maximizing margin between classes.",
+    "expected_source": "SupportcoursesM-DLearning.pdf",
+    "expected_page": 49
+  },
+  {
+    "id": 13,
+    "question": "What makes support vectors special in SVM?",
+    "expected_answer": "They are data points closest to the hyperplane influencing its position.",
+    "expected_source": "SupportcoursesM-DLearning.pdf",
+    "expected_page": 49
+  },
+  {
+    "id": 14,
+    "question": "What are the algorithm steps of K-Means clustering?",
+    "expected_answer": "Choose k, initialize centroids, assign points via Euclidean distance, update centroids by mean, repeat.",
+    "expected_source": "SupportcoursesM-DLearning.pdf",
+    "expected_page": 64
+  },
+  {
+    "id": 15,
+    "question": "How is the optimal cluster count K chosen according to the documentation?",
+    "expected_answer": "The provided documentation does not contain information to answer this question.",
+    "expected_source": "SupportcoursesM-DLearning.pdf",
+    "expected_page": 64
+  },
+  {
+    "id": 16,
+    "question": "What is the mathematical formulation of SVD decomposition?",
+    "expected_answer": "X = U * Sigma * V^T",
+    "expected_source": "SupportcoursesM-DLearning.pdf",
+    "expected_page": 73
+  },
+  {
+    "id": 17,
+    "question": "Where is Singular Value Decomposition (SVD) primarily used in agronomy?",
+    "expected_answer": "Soil property analysis, crop yield prediction, environmental monitoring.",
+    "expected_source": "SupportcoursesM-DLearning.pdf",
+    "expected_page": 73
+  },
+  {
+    "id": 18,
+    "question": "How do decision trees split features in classification tasks?",
+    "expected_answer": "Recursively split using Gini impurity or Information Gain.",
+    "expected_source": "SupportcoursesM-DLearning.pdf",
+    "expected_page": 44
+  },
+  {
+    "id": 19,
+    "question": "How can overfitting be prevented in decision trees according to the text?",
+    "expected_answer": "Using Bagging to aggregate predictions across models.",
+    "expected_source": "SupportcoursesM-DLearning.pdf",
+    "expected_page": 55
+  },
+  {
+    "id": 20,
+    "question": "What is the refund policy for hardware products?",
+    "expected_answer": "The provided documentation does not contain information to answer this question.",
+    "expected_source": "None",
+    "expected_page": 0
+  }
+]

@@ -1,0 +1,34 @@
+# Environments
+venv/
+env/
+.venv/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# Secrets
+.env
+
+# Generated / runtime data
+outputs/
+logs/
+*.log
+
+# Uploaded/user data (keep the folder, ignore its contents)
+data/uploads/*
+!data/uploads/.gitkeep
+
+# Reference voice audio (personal, sizable — remove this line if you want it in the repo)
+data/reference_voices/*.wav
+
+# Model caches (Hugging Face / Coqui TTS / torch, if downloaded into the repo dir)
+.cache/
+*.pt
+*.pth
+
+# OS junk
+.DS_Store
+Thumbs.db
