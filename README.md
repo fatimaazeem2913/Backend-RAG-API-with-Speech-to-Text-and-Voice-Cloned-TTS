@@ -296,10 +296,8 @@ future endpoints rather than a passing suite for now.
   XTTS's internal generation code entirely rather than just disabling
   streaming.
 
-## License
-
-MIT (or your preferred license — update this section).
-
 ## Author
 
-Muhammad Hannan — [github.com/Hannan-12](https://github.com/Hannan-12)
+Fatima Azeem 
+
+
