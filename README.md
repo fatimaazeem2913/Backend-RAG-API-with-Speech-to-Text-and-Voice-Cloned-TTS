@@ -296,8 +296,73 @@ future endpoints rather than a passing suite for now.
   XTTS's internal generation code entirely rather than just disabling
   streaming.
 
+## Deployment
+
+**Live backend URL:** `https://swung-rubdown-elf.ngrok-free.dev` *(ngrok free-tier URL — changes if the tunnel restarts; see caveats below)*
+**Live frontend URL:** `https://frontend-rag-chat-with-voice-input.vercel.app`
+
+### Hosting choice, and why
+
+This backend runs as a Docker container **on the developer's own machine**, exposed to the internet via an [ngrok](https://ngrok.com) tunnel — not a managed always-on host like Hugging Face Spaces or an Oracle Cloud free VM.
+
+Reasoning: this stack has no GPU (see [Known Limitations](#known-limitations)) and is already CPU-tuned on this exact hardware. A free-tier cloud host would be CPU-only too, adds real setup complexity (Spaces' port/SDK conventions, or a VM's own Docker/nginx/systemd setup), and the resulting image here is large (~9GB, mostly XTTS v2 + Whisper + embedding weights) — comfortably fits on a local machine, less comfortably on a constrained free tier. ngrok trades "always-on" for "zero additional hosting complexity," which was the right tradeoff for this project's scope.
+
+**Real tradeoff to be aware of:** this backend is only reachable while both the Docker container *and* the ngrok tunnel are actively running on that machine — it is not a persistent deployment in the way a managed host would be.
+
+### Running it yourself
+
+```bash
+cd backend
+docker build -t voice-rag-backend:latest .
+
+docker run -d --name voice-rag-backend \
+  -p 8000:8000 \
+  --env-file .env \
+  -v $(pwd)/data/reference_voices:/app/data/reference_voices \
+  -v $(pwd)/outputs:/app/outputs \
+  -v $(pwd)/logs:/app/logs \
+  voice-rag-backend:latest
+
+ngrok http 8000
+```
+
+See [Environment Variables](#environment-variables) for what `.env` needs, including the deployment-only `CORS_ALLOWED_ORIGINS`.
+
+### Environment variable reference (deployment-specific)
+
+| Variable | Local dev | Deployment |
+|---|---|---|
+| `GEMINI_API_KEY` | Required | Required, same value |
+| `COQUI_TOS_AGREED` | Required (`1`) | Required, same value |
+| `CORS_ALLOWED_ORIGINS` | Unset (defaults to `*`) | Set to the exact deployed frontend origin, e.g. `https://frontend-rag-chat-with-voice-input.vercel.app` — comma-separate multiple origins if needed |
+
+CORS lockdown was verified with a real preflight test, not just code inspection:
+
+```bash
+# Untrusted origin — should print NOTHING (no Access-Control-Allow-Origin header)
+curl -s -X OPTIONS -H "Origin: https://some-random-site.com" \
+  -H "Access-Control-Request-Method: POST" -i http://127.0.0.1:8000/api/rag/chat/stream \
+  | grep -i "access-control-allow-origin"
+
+# Real frontend origin — should print the matching header
+curl -s -X OPTIONS -H "Origin: https://frontend-rag-chat-with-voice-input.vercel.app" \
+  -H "Access-Control-Request-Method: POST" -i http://127.0.0.1:8000/api/rag/chat/stream \
+  | grep -i "access-control-allow-origin"
+```
+
+### Differences from local behavior
+
+- **CORS is actually restrictive here**, unlike local dev's default wide-open `*`. This was deliberately verified with the preflight test above, not assumed from reading the code.
+- **ngrok's free-tier browser warning page** blocked real requests from unfamiliar browsers/devices (confirmed: worked on one laptop browser that had "seen" the tunnel before, failed with a generic `Load failed` error on a phone that hadn't). Fixed by adding an `ngrok-skip-browser-warning: true` header to every fetch call in the frontend — see the frontend README's Deployment section.
+- **TTS/STT latency is identical to local**, since it's genuinely the same physical machine — this deployment does not "hide" the CPU latency documented elsewhere in this README; a `realtime_factor` above 1.0 in the pipeline logs means the same thing here as it does locally.
+- **One anomalous LLM delay was observed**: a single request measured 111.7s between `llm.request_sent` and `llm.first_chunk_received` (vs. a more typical ~1-16s seen elsewhere), with the rest of that response streaming normally afterward. This didn't recur on retest and is most likely Gemini-side variability rather than anything specific to the deployment — worth continued monitoring via the pipeline logs rather than treating as fixed.
+- **The ngrok URL is not stable.** On the free tier, restarting the tunnel assigns a new URL, which requires updating `VITE_API_BASE` in Vercel's project settings and running `vercel --prod` again, and updating `CORS_ALLOWED_ORIGINS` here to match if the frontend URL ever changes too (it doesn't change on ngrok restarts, only the backend URL does).
+
+
+## License
+
+MIT (or your preferred license — update this section).
+
 ## Author
 
-Fatima Azeem 
-
-
+Muhammad Hannan — [github.com/Hannan-12](https://github.com/Hannan-12)
