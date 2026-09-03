@@ -1,0 +1,15 @@
+venv/
+.venv/
+env/
+__pycache__/
+*.pyc
+.git/
+.env
+logs/
+outputs/
+data/uploads/*
+!data/uploads/.gitkeep
+data/reference_voices/*.wav
+.DS_Store
+tests/
+*.md

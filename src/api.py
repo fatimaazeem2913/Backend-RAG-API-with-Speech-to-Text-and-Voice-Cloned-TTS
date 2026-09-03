@@ -41,9 +41,17 @@ if not logger.handlers:
 
 app = FastAPI(title="Enterprise Voice RAG API")
 
+# 🚀 Deployment: set CORS_ALLOWED_ORIGINS to your exact deployed frontend
+# domain(s), comma-separated if more than one — e.g.
+#   CORS_ALLOWED_ORIGINS=https://your-app.vercel.app
+# Defaults to "*" (wide open) so local dev needs zero config, matching the
+# previous behavior. Do not leave it as "*" in a real deployment.
+_cors_env = os.getenv("CORS_ALLOWED_ORIGINS", "*").strip()
+CORS_ALLOWED_ORIGINS = ["*"] if _cors_env == "*" else [o.strip() for o in _cors_env.split(",") if o.strip()]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=CORS_ALLOWED_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
