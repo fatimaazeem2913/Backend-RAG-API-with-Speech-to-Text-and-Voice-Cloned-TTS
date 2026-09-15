@@ -359,10 +359,6 @@ curl -s -X OPTIONS -H "Origin: https://frontend-rag-chat-with-voice-input.vercel
 - **The ngrok URL is not stable.** On the free tier, restarting the tunnel assigns a new URL, which requires updating `VITE_API_BASE` in Vercel's project settings and running `vercel --prod` again, and updating `CORS_ALLOWED_ORIGINS` here to match if the frontend URL ever changes too (it doesn't change on ngrok restarts, only the backend URL does).
 
 
-## License
-
-MIT (or your preferred license — update this section).
-
 ## Author
 
-Muhammad Hannan — [github.com/Hannan-12](https://github.com/Hannan-12)
+Fatima Azeem
